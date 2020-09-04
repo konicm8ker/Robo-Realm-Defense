@@ -4,21 +4,40 @@ using UnityEngine;
 
 [ExecuteAlways] // Runs scripts live in editor + playmode
 [SelectionBase] // Prevents initial child selection
+[RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
-    [SerializeField][Range(1f,20f)] float gridSize = 10f;
-    TextMesh textMesh;
+    Waypoint waypoint;
+
+    void Awake()
+    {
+        waypoint = GetComponent<Waypoint>();
+    }
 
     void Update()
     {
+        SnapToGrid();
+        UpdateLabel();
+    }
 
-        Vector3 snapPos;
-        snapPos.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
-        snapPos.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
-        transform.position = new Vector3(snapPos.x, 0f, snapPos.z); // Auto snap to grid
+    private void SnapToGrid()
+    {
+        int gridSize = waypoint.GetGridSize();
+        transform.position = new Vector3(
+            waypoint.GetGridPos().x,
+            0f,
+            waypoint.GetGridPos().y
+        ); // Auto snap to grid
+    }
 
-        textMesh = GetComponentInChildren<TextMesh>(); // Update labels with snapped coord
-        string labelText = (snapPos.x / gridSize) + "," + (snapPos.z / gridSize);
+    private void UpdateLabel()
+    {
+        TextMesh textMesh = GetComponentInChildren<TextMesh>(); // Update labels with snapped coord
+        int gridSize = waypoint.GetGridSize();
+        string labelText =
+            (waypoint.GetGridPos().x / gridSize) +
+            "," +
+            (waypoint.GetGridPos().y / gridSize);
         textMesh.text = labelText;
         gameObject.name = labelText;
     }
