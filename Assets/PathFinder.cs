@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
+    [SerializeField] Waypoint startWaypoint = null;
+    [SerializeField] Waypoint endWaypoint = null;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
     void Start()
     {
         LoadBlocks();
+        ColorStartAndEnd();
     }
 
     private void LoadBlocks()
     {
         var waypoints = FindObjectsOfType<Waypoint>();
+
         foreach(Waypoint waypoint in waypoints)
         {
             var gridPos = waypoint.GetGridPos();
@@ -29,6 +33,12 @@ public class PathFinder : MonoBehaviour
                 grid.Add(gridPos, waypoint);
             }
         }
-        print("Loaded " + grid.Count + " blocks to dictionary.");
+        // print("Loaded " + grid.Count + " blocks to dictionary.");
+    }
+
+    private void ColorStartAndEnd()
+    {
+        startWaypoint.SetTopColor(Color.green);
+        endWaypoint.SetTopColor(Color.red);
     }
 }

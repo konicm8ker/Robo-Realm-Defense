@@ -754,6 +754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77ca981f6c2dd74ab156be5ef5233f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startWaypoint: {fileID: 1939375194}
+  endWaypoint: {fileID: 87186895}
 --- !u!1001 &1939375193
 PrefabInstance:
   m_ObjectHideFlags: 0
