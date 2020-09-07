@@ -21,7 +21,6 @@ public class PathFinder : MonoBehaviour
         LoadBlocks();
         ColorStartAndEnd();
         PathSearch();
-        // ExploreNeighbors();
     }
 
     private void LoadBlocks()
@@ -52,32 +51,17 @@ public class PathFinder : MonoBehaviour
         endWaypoint.SetTopColor(Color.red);
     }
 
-    private void ExploreNeighbors()
-    {
-        foreach(Vector2Int direction in directions)
-        {
-            Vector2Int neighborCoordinates = startWaypoint.GetGridPos() + direction;
-            // print("Exploring " + neighborCoordinates);
-            try
-            {
-                grid[neighborCoordinates].SetTopColor(Color.blue);
-            }
-            catch
-            {
-                Debug.LogWarning("Block " + neighborCoordinates + " not in dictionary, skipping.");
-            }
-        }
-    }
-
     private void PathSearch()
     {
         queue.Enqueue(startWaypoint);
 
-        while(queue.Count > 0)
+        while(queue.Count > 0 && isRunning)
         {
-            var searchCenter = queue.Dequeue();
-            print(searchCenter); // TODO: remove log later
+            Waypoint searchCenter = queue.Dequeue();
+            print("Searching from: " + searchCenter); // TODO: remove log later
             HaltIfEndFound(searchCenter);
+            ExploreNeighbors(searchCenter);
+            searchCenter.isExplored = true;
         }
 
         print("Finished pathfinding?");
@@ -87,8 +71,41 @@ public class PathFinder : MonoBehaviour
     {
         if(searchCenter == endWaypoint)
             {
-                Debug.LogWarning("End waypoint found at start. Skipping path search.");
+                print("End waypoint found. Skipping path search.");
                 isRunning = false;
             }
+    }
+
+    private void ExploreNeighbors(Waypoint from)
+    {
+        if(!isRunning) { return; }
+        foreach(Vector2Int direction in directions)
+        {
+            Vector2Int neighborCoordinates = from.GetGridPos() + direction;
+            // print("Exploring " + neighborCoordinates);
+            try
+            {
+                QueueNewNeighbors(neighborCoordinates);
+            }
+            catch
+            {
+                // print("Block " + neighborCoordinates + " not in dictionary, skipping.");
+            }
+        }
+    }
+
+    private void QueueNewNeighbors(Vector2Int neighborCoordinates)
+    {
+        Waypoint neighbor = grid[neighborCoordinates];
+        if(neighbor.isExplored)
+        {
+            // Do nothing
+        }
+        else
+        {
+            neighbor.SetTopColor(Color.blue); // TODO: Move later
+            queue.Enqueue(neighbor);
+            print("Queuing " + neighbor);
+        }
     }
 }
