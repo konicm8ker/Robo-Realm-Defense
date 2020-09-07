@@ -7,18 +7,21 @@ public class PathFinder : MonoBehaviour
     [SerializeField] Waypoint startWaypoint = null;
     [SerializeField] Waypoint endWaypoint = null;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
+    Queue<Waypoint> queue = new Queue<Waypoint>();
     Vector2Int[] directions = {
         Vector2Int.up,
         Vector2Int.right,
         Vector2Int.down,
         Vector2Int.left
-    }; 
+    };
+    [SerializeField] bool isRunning = true;
 
     void Start()
     {
         LoadBlocks();
         ColorStartAndEnd();
-        ExploreNeighbors();
+        PathSearch();
+        // ExploreNeighbors();
     }
 
     private void LoadBlocks()
@@ -64,5 +67,28 @@ public class PathFinder : MonoBehaviour
                 Debug.LogWarning("Block " + neighborCoordinates + " not in dictionary, skipping.");
             }
         }
+    }
+
+    private void PathSearch()
+    {
+        queue.Enqueue(startWaypoint);
+
+        while(queue.Count > 0)
+        {
+            var searchCenter = queue.Dequeue();
+            print(searchCenter); // TODO: remove log later
+            HaltIfEndFound(searchCenter);
+        }
+
+        print("Finished pathfinding?");
+    }
+
+    private void HaltIfEndFound(Waypoint searchCenter)
+    {
+        if(searchCenter == endWaypoint)
+            {
+                Debug.LogWarning("End waypoint found at start. Skipping path search.");
+                isRunning = false;
+            }
     }
 }
