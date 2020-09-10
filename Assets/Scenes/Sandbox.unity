@@ -1161,7 +1161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWaypoint: {fileID: 1644570239}
   endWaypoint: {fileID: 1705979062}
-  isRunning: 1
 --- !u!1001 &1939375193
 PrefabInstance:
   m_ObjectHideFlags: 0

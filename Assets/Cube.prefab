@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3cea291e35aabf43841a077366f947f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 10
 --- !u!114 &30666376482834952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eabf484a9a23c74196f91b55da8a6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isExplored: 0
+  exploredFrom: {fileID: 0}
+  exploredColor: {r: 0.09714311, g: 0.27198097, b: 0.5566038, a: 0}
+  defaultColor: {r: 1, g: 0.54901963, b: 0, a: 0}
 --- !u!1 &6584877939915721175
 GameObject:
   m_ObjectHideFlags: 0
