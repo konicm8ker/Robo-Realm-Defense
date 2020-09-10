@@ -8,6 +8,7 @@ public class PathFinder : MonoBehaviour
     [SerializeField] Waypoint endWaypoint = null;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
+    List<Waypoint> path = new List<Waypoint>();
     Vector2Int[] directions = {
         Vector2Int.up,
         Vector2Int.right,
@@ -17,11 +18,12 @@ public class PathFinder : MonoBehaviour
     bool isRunning = true;
     Waypoint searchCenter; // The current search center
 
-    void Start()
+    public List<Waypoint> GetPath()
     {
         LoadBlocks();
-        ColorStartAndEnd();
-        PathSearch();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
     void LateUpdate()
@@ -57,7 +59,7 @@ public class PathFinder : MonoBehaviour
         endWaypoint.SetTopColor(Color.red);
     }
 
-    private void PathSearch()
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
 
@@ -69,8 +71,19 @@ public class PathFinder : MonoBehaviour
             ExploreNeighbors();
             searchCenter.isExplored = true;
         }
+    }
 
-        print("Finished pathfinding?");
+    private void CreatePath()
+    {
+        path.Add(endWaypoint);
+        Waypoint previous = endWaypoint.exploredFrom;
+        while(previous != startWaypoint)
+        {
+            path.Add(previous);
+            previous = previous.exploredFrom;
+        }
+        path.Add(startWaypoint);
+        path.Reverse();
     }
 
     private void HaltIfEndFound()
@@ -89,13 +102,9 @@ public class PathFinder : MonoBehaviour
         {
             Vector2Int neighborCoordinates = searchCenter.GetGridPos() + direction;
             // print("Exploring " + neighborCoordinates);
-            try
+            if(grid.ContainsKey(neighborCoordinates))
             {
                 QueueNewNeighbors(neighborCoordinates);
-            }
-            catch
-            {
-                // print("Block " + neighborCoordinates + " not in dictionary, skipping.");
             }
         }
     }
