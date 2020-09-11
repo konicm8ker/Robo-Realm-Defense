@@ -42,7 +42,7 @@ public class PathFinder : MonoBehaviour
             // Check for duplicate blocks
             if(grid.ContainsKey(gridPos))
             {
-                // Debug.LogWarning("Duplicate block detected, skipping " + waypoint);
+                Debug.LogWarning("Duplicate block detected, skipping " + waypoint);
             }
             else
             {
