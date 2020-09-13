@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
             transform.LookAt(targetPos);
             while(Vector3.Distance(transform.position, targetPos) >= Mathf.Epsilon)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 12f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 3f);
                 yield return null;
             }
             transform.LookAt(targetPos + new Vector3(0,0,1)); // Have enemy look up when on end waypoint
