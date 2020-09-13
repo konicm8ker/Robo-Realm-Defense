@@ -23,7 +23,6 @@ public class EnemyMovement : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 3f);
                 yield return null;
             }
-            transform.LookAt(targetPos + new Vector3(0,0,1)); // Have enemy look up when on end waypoint
         }
         yield return null;
     }
