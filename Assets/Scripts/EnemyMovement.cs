@@ -16,11 +16,15 @@ public class EnemyMovement : MonoBehaviour
         // Smooth enemy movement between waypoints
         for(int i=0; i<path.Count; i++)
         {
-            Vector3 targetPos = path[i].transform.position;
+            Vector3 targetPos = new Vector3(
+                path[i].transform.position.x,
+                transform.position.y,
+                path[i].transform.position.z
+            );
             transform.LookAt(targetPos);
-            while(Vector3.Distance(transform.position, targetPos) >= Mathf.Epsilon)
+            while(transform.position != targetPos)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 3f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 12f);
                 yield return null;
             }
         }
