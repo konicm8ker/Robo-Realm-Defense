@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+
     void Start()
     {
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
