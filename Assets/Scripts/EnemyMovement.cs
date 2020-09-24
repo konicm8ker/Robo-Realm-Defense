@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-
+    float enemySpeed = 6f;
     void Start()
     {
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
             transform.LookAt(targetPos);
             while(transform.position != targetPos)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 12f);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * enemySpeed);
                 yield return null;
             }
         }

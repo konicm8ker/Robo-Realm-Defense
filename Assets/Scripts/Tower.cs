@@ -22,11 +22,27 @@ public class Tower : MonoBehaviour
 
     private void ProcessAim()
     {
-        towerToPan.LookAt(enemyTarget);
+        var enemyAlive = FindObjectOfType<EnemyDamage>().enemyAlive;
+        if(enemyAlive)
+        {
+            towerToPan.LookAt(enemyTarget);
+        }
     }
 
     private void ProcessFiring()
     {
         // instantiate particle firing
+        var enemyAlive = FindObjectOfType<EnemyDamage>().enemyAlive;
+        var emissionModule = this.gameObject.transform.Find("Tower_A_Top").transform.GetChild(0).GetComponent<ParticleSystem>().emission;
+        if(enemyAlive)
+        {
+            emissionModule.enabled = true;
+        }
+        else
+        {
+            emissionModule.enabled = false;
+        }
+        
+
     }
 }
