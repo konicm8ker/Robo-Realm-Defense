@@ -9,11 +9,6 @@ public class Tower : MonoBehaviour
     [SerializeField] Transform enemyTarget = null;
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
 
-    void Start()
-    {
-        ProcessFiring(false);
-    }
-
     void Update()
     {
         CheckEnemyExists();
@@ -35,7 +30,7 @@ public class Tower : MonoBehaviour
     private void CheckEnemyDistance()
     {
         // Check if enemy is within range to shoot
-        System.Single enemyDistance = Vector3.Distance(enemyTarget.transform.position, towerToPan.transform.position);
+        float enemyDistance = Vector3.Distance(enemyTarget.transform.position, gameObject.transform.position);
         if(enemyDistance < attackRange)
         {
             ProcessFiring(true);
