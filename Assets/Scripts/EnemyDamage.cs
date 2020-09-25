@@ -5,21 +5,25 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField] int enemyHitPoints = 100;
-    public bool enemyAlive = true;
 
     private void OnParticleCollision(GameObject other)
     {
-        if(enemyHitPoints > 0)
+        ProcessDamage();
+        if(enemyHitPoints <= 0)
         {
-            enemyHitPoints -= 2;
-            print("Enemy HP: " + enemyHitPoints);
-            if(enemyHitPoints <= 0) { enemyAlive = false; }
+            DestroyEnemy();
         }
-        if(!enemyAlive)
-        {
-            print("Enemy is dead.");
-            this.gameObject.transform.localScale = new Vector3(0,0,0);
-        }
+    }
+
+    private void ProcessDamage()
+    {
+        enemyHitPoints -= 2;
+        print("Enemy HP: " + enemyHitPoints);
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
 }
