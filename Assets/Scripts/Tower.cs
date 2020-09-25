@@ -5,19 +5,45 @@ using UnityEngine;
 [RequireComponent(typeof(Tower))]
 public class Tower : MonoBehaviour
 {
-    Transform towerToPan = null;
-    Transform enemyTarget = null;
+    [SerializeField] Transform towerToPan = null;
+    [SerializeField] Transform enemyTarget = null;
+    [SerializeField][Range(1f,50f)] float attackRange = 30f;
 
     void Start()
     {
-        towerToPan = GetComponent<Transform>().Find("Tower_A_Top"); // Only pan top of tower
-        enemyTarget = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
+        ProcessFiring(false);
     }
 
     void Update()
     {
-        ProcessAim();
-        ProcessFiring();
+        CheckEnemyExists();
+    }
+
+    private void CheckEnemyExists()
+    {
+        if(enemyTarget)
+        {
+            ProcessAim();
+            CheckEnemyDistance();
+        }
+        else
+        {
+            ProcessFiring(false);
+        }
+    }
+
+    private void CheckEnemyDistance()
+    {
+        // Check if enemy is within range to shoot
+        System.Single enemyDistance = Vector3.Distance(enemyTarget.transform.position, towerToPan.transform.position);
+        if(enemyDistance < attackRange)
+        {
+            ProcessFiring(true);
+        }
+        else
+        {
+            ProcessFiring(false);
+        }
     }
 
     private void ProcessAim()
@@ -25,9 +51,10 @@ public class Tower : MonoBehaviour
         towerToPan.LookAt(enemyTarget);
     }
 
-    private void ProcessFiring()
+    private void ProcessFiring(bool value)
     {
-        var emissionModule = this.gameObject.transform.Find("Tower_A_Top").transform.GetChild(0).GetComponent<ParticleSystem>().emission;
-        emissionModule.enabled = true;
+        Transform towerTop = this.gameObject.transform.Find("Tower_A_Top").transform.GetChild(0);
+        ParticleSystem.EmissionModule emissionModule = towerTop.GetComponent<ParticleSystem>().emission;
+        emissionModule.enabled = value;
     }
 }
