@@ -87,8 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486387d677c6eab48be2d1ccc2ef29ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitPoints: 100
-  enemyAlive: 1
+  enemyHitPoints: 75
 --- !u!1001 &2449826644307127740
 PrefabInstance:
   m_ObjectHideFlags: 0

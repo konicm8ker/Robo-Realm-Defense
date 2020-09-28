@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    float enemySpeed = 6f;
+    float enemySpeed = 4f;
     void Start()
     {
         PathFinder pathFinder = FindObjectOfType<PathFinder>();

@@ -168,7 +168,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 150
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3883,7 +3883,7 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.02
+      scalar: 0.018
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4959,5 +4959,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerToPan: {fileID: 5066963648845348397}
-  enemyTarget: {fileID: 0}
-  attackRange: 50
+  attackRange: 40

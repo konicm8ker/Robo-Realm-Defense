@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField][Tooltip("In seconds")] float spawnTimer = 2f;
-    [SerializeField] Transform parent;
-    [SerializeField] GameObject enemy;
+    [SerializeField][Tooltip("In seconds")][Range(0.1f,120f)] float spawnTimer = 2f;
+    [SerializeField] Transform parent = null;
+    [SerializeField] EnemyMovement enemyPrefab = null;
 
     void Start()
     {
@@ -15,11 +15,12 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        // Delay initial enemy spawn
+        yield return new WaitForSeconds(spawnTimer);
         for(int i=0; i<5; i++)
         {
-            print("Spawning enemy." + Time.time);
-            GameObject enemySpawn = Instantiate(enemy, enemy.transform.position, Quaternion.identity);
-            enemySpawn.transform.parent = parent;
+            EnemyMovement enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
+            enemy.transform.parent = parent;
             yield return new WaitForSeconds(spawnTimer);
         }
     }
