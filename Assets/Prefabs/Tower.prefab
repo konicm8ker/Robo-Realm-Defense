@@ -4960,4 +4960,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerToPan: {fileID: 5066963648845348397}
   enemyTarget: {fileID: 0}
-  attackRange: 40
+  attackRange: 50

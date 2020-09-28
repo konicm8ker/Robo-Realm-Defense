@@ -9,6 +9,12 @@ public class Tower : MonoBehaviour
     [SerializeField] Transform enemyTarget = null;
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
 
+    void Start()
+    {
+        // TODO: Optimize for spawning enemies
+        enemyTarget = enemyTarget.transform.Find("Enemy");
+    }
+
     void Update()
     {
         CheckEnemyExists();
@@ -48,7 +54,7 @@ public class Tower : MonoBehaviour
 
     private void ProcessFiring(bool value)
     {
-        Transform towerTop = this.gameObject.transform.Find("Tower_A_Top").transform.GetChild(0);
+        Transform towerTop = this.gameObject.transform.Find("Tower_A_Top").GetChild(0);
         ParticleSystem.EmissionModule emissionModule = towerTop.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = value;
     }

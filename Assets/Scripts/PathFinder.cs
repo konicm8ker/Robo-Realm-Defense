@@ -20,9 +20,13 @@ public class PathFinder : MonoBehaviour
 
     public List<Waypoint> GetPath()
     {
-        LoadBlocks();
-        BreadthFirstSearch();
-        CreatePath();
+        // Only create path once and return calculated path
+        if(path.Count == 0)
+        {
+            LoadBlocks();
+            BreadthFirstSearch();
+            CreatePath();
+        }
         return path;
     }
 
