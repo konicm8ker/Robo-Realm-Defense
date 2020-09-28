@@ -18,7 +18,7 @@ public class EnemyDamage : MonoBehaviour
     private void ProcessDamage()
     {
         enemyHitPoints -= 2;
-        print("Enemy HP: " + enemyHitPoints);
+        // print("Enemy HP: " + enemyHitPoints);
     }
 
     private void DestroyEnemy()
