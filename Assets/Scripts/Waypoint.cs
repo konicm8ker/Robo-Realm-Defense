@@ -6,6 +6,7 @@ public class Waypoint : MonoBehaviour
 {
     // Public var okay here as they are data classes
     public bool isExplored = false;
+    public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
     [SerializeField] Color exploredColor = new Color(25f,69f,142f,0f);
     [SerializeField] Color defaultColor = new Color(255f,140f,0f,0f);
@@ -26,7 +27,10 @@ public class Waypoint : MonoBehaviour
 
     void OnMouseOver()
     {
-        print("Current Waypoint: " + this.gameObject.name);
+        if(Input.GetMouseButtonDown(0) && this.isPlaceable)
+        {
+            print("Placing tower on : " + this.gameObject.name);
+        }
     }
     
     public int GetGridSize()
