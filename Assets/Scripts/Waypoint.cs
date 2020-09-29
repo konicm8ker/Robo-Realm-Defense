@@ -23,6 +23,11 @@ public class Waypoint : MonoBehaviour
             SetTopColor(defaultColor);
         }
     }
+
+    void OnMouseOver()
+    {
+        print("Current Waypoint: " + this.gameObject.name);
+    }
     
     public int GetGridSize()
     {
