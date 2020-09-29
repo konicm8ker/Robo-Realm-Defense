@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
     {
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
         var path = pathFinder.GetPath();
-        // StartCoroutine(FollowPath(path));
+        StartCoroutine(FollowPath(path));
     }
 
     IEnumerator FollowPath(List<Waypoint> path)

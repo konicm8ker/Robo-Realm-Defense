@@ -39,8 +39,8 @@ public class Tower : MonoBehaviour
     private Transform GetClosestEnemy(Transform transformA, Transform transformB)
     {
         // Get distance from assumed nearest (A) enemy and the enemy being tested (B)
-        float distToA = Vector3.Distance(this.transform.position, transformA.position);
-        float distToB = Vector3.Distance(this.transform.position, transformB.position);
+        float distToA = Vector3.Distance(transform.position, transformA.position);
+        float distToB = Vector3.Distance(transform.position, transformB.position);
         if(distToB < distToA)
         {
             return transformB;
@@ -69,7 +69,7 @@ public class Tower : MonoBehaviour
 
     private void ProcessFiring(bool value)
     {
-        Transform towerTop = this.gameObject.transform.Find("Tower_A_Top").GetChild(0);
+        Transform towerTop = gameObject.transform.Find("Tower_A_Top").GetChild(0);
         ParticleSystem.EmissionModule emissionModule = towerTop.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = value;
     }
