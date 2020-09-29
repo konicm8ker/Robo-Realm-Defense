@@ -9,12 +9,18 @@ public class Waypoint : MonoBehaviour
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
     [SerializeField] Tower towerPrefab = null;
+    GameObject cursor;
     GameObject towers;
     Vector2Int gridPos;
     const int gridSize = 10;
 
     void OnMouseOver()
     {
+        if(isPlaceable)
+        {
+            UpdateCursor(true);
+        }
+
         if(Input.GetMouseButtonDown(0))
         {
             if(isPlaceable)
@@ -24,13 +30,31 @@ public class Waypoint : MonoBehaviour
         }
     }
 
+    void OnMouseExit()
+    {
+        UpdateCursor(false);
+    }
+
+    private void UpdateCursor(bool render)
+    {
+        cursor = GameObject.Find("Cursor");
+        MeshRenderer cursorMesh = cursor.GetComponent<MeshRenderer>();
+
+        cursorMesh.enabled = render;
+        cursor.transform.position = new Vector3(
+            transform.position.x,
+            cursor.transform.position.y,
+            transform.position.z
+        );
+    }
+
     private void PlaceTower()
     {
-        print("Placing tower on : " + gameObject.name);
         towers = GameObject.Find("Towers");
         Tower tower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
         tower.transform.parent = towers.transform; // Place all instantiated towers in parent
         isPlaceable = false;
+        UpdateCursor(false);
     }
 
     public int GetGridSize()
