@@ -30,11 +30,6 @@ public class PathFinder : MonoBehaviour
         return path;
     }
 
-    void LateUpdate()
-    {
-        ColorStartAndEnd();
-    }
-
     private void LoadBlocks()
     {
         var waypoints = FindObjectsOfType<Waypoint>();
@@ -55,12 +50,6 @@ public class PathFinder : MonoBehaviour
             }
         }
         // print("Loaded " + grid.Count + " blocks to dictionary.");
-    }
-
-    private void ColorStartAndEnd()
-    {
-        startWaypoint.SetTopColor(Color.green);
-        endWaypoint.SetTopColor(Color.red);
     }
 
     private void BreadthFirstSearch()

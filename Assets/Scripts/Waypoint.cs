@@ -9,23 +9,9 @@ public class Waypoint : MonoBehaviour
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
     [SerializeField] Tower towerPrefab = null;
-    [SerializeField] Color exploredColor = new Color(25f,69f,142f,0f);
-    [SerializeField] Color defaultColor = new Color(255f,140f,0f,0f);
     GameObject towers;
     Vector2Int gridPos;
     const int gridSize = 10;
-
-    void Update()
-    {
-        if(isExplored)
-        {
-            SetTopColor(exploredColor);
-        }
-        else
-        {
-            SetTopColor(defaultColor);
-        }
-    }
 
     void OnMouseOver()
     {
@@ -60,10 +46,4 @@ public class Waypoint : MonoBehaviour
         );
     }
 
-    public void SetTopColor(Color color)
-    {
-        // Find "Top" mesh renderer and changes material color
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
-    }
 }
