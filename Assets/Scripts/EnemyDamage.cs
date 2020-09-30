@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    [SerializeField] int enemyHitPoints = 100;
+    [SerializeField] int enemyHitPoints = 60;
+    [SerializeField] ParticleSystem enemyHit = null;
+    [SerializeField] ParticleSystem enemyDeath = null;
+    GameObject instanceParent = null;
 
     private void OnParticleCollision(GameObject other)
     {
@@ -18,11 +21,17 @@ public class EnemyDamage : MonoBehaviour
     private void ProcessDamage()
     {
         enemyHitPoints -= 2;
-        // print("Enemy HP: " + enemyHitPoints);
+        enemyHit.Play();
     }
 
     private void DestroyEnemy()
     {
+        // Adjusted death particle explosion height
+        Vector3 enemyDeathPos = new Vector3(transform.position.x, transform.position.y * 2f, transform.position.z);
+        ParticleSystem enemyDeathFX = Instantiate(enemyDeath, enemyDeathPos, Quaternion.identity);
+        instanceParent = GameObject.Find("Instances"); 
+        enemyDeathFX.transform.parent = instanceParent.transform;
+        enemyDeathFX.Play();
         Destroy(gameObject);
     }
 
