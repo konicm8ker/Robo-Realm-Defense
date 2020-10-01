@@ -8,9 +8,7 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
-    [SerializeField] Tower towerPrefab = null;
     GameObject cursor;
-    GameObject towers;
     Vector2Int gridPos;
     const int gridSize = 10;
 
@@ -25,7 +23,11 @@ public class Waypoint : MonoBehaviour
         {
             if(isPlaceable)
             {
-                PlaceTower();
+                FindObjectOfType<TowerHandler>().AddTower(this);
+            }
+            else
+            {
+                print("Can't place tower here.");
             }
         }
     }
@@ -46,15 +48,6 @@ public class Waypoint : MonoBehaviour
             cursor.transform.position.y,
             transform.position.z
         );
-    }
-
-    private void PlaceTower()
-    {
-        towers = GameObject.Find("Towers");
-        Tower tower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-        tower.transform.parent = towers.transform; // Place all instantiated towers in parent
-        isPlaceable = false;
-        UpdateCursor(false);
     }
 
     public int GetGridSize()
