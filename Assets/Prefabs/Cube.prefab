@@ -75,8 +75,6 @@ MonoBehaviour:
   isExplored: 0
   isPlaceable: 1
   exploredFrom: {fileID: 0}
-  towerPrefab: {fileID: 5071029912581703735, guid: 1ff4241a0319c8a428e82510d4a33d71,
-    type: 3}
 --- !u!1 &6584877940300726106
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +209,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8218258065503549828}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

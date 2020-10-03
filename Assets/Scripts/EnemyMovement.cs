@@ -31,5 +31,4 @@ public class EnemyMovement : MonoBehaviour
         }
         yield return null;
     }
-
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField][Tooltip("In seconds")][Range(0.1f,120f)] float spawnTimer = 2f;
-    [SerializeField] Transform parent = null;
+    [SerializeField] Transform enemyParent = null;
     [SerializeField] EnemyMovement enemyPrefab = null;
 
     void Start()
@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
         for(int i=0; i<5; i++)
         {
             EnemyMovement enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
-            enemy.transform.parent = parent;
+            enemy.transform.parent = enemyParent;
             yield return new WaitForSeconds(spawnTimer);
         }
     }

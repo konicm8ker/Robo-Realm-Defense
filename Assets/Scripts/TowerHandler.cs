@@ -6,34 +6,43 @@ public class TowerHandler : MonoBehaviour
 {
     [SerializeField] int towerLimit = 5;
     [SerializeField] Tower towerPrefab = null;
-    GameObject towers = null;
-    int towerCount = 0;
+    [SerializeField] Queue<Tower> towerQueue = new Queue<Tower>();
+    [SerializeField] Transform towerParent = null;
 
-    public void AddTower(Waypoint waypoint)
+    public void AddTower(Waypoint baseWaypoint)
     {
-        if(towerCount < towerLimit)
+        if(towerQueue.Count < towerLimit)
         {
-            InstantiateTower(waypoint);
+            InstantiateTower(baseWaypoint);
         }
         else
         {
-            MoveTower();
+            MoveTower(baseWaypoint);
         }
-
     }
 
-    private void InstantiateTower(Waypoint waypoint)
+    private void InstantiateTower(Waypoint baseWaypoint)
     {
-        towers = GameObject.Find("Towers");
-        Tower tower = Instantiate(towerPrefab, waypoint.transform.position, Quaternion.identity);
-        tower.transform.parent = towers.transform; // Place all instantiated towers in parent
-        waypoint.isPlaceable = false;
-        towerCount++;
+        Tower newTower = Instantiate(towerPrefab, baseWaypoint.transform.position, Quaternion.identity);
+
+        // Place instantiated tower in parent, set waypoint and flags
+        newTower.transform.parent = towerParent;
+        newTower.baseWaypoint = baseWaypoint;
+        baseWaypoint.isPlaceable = false;
+
+        towerQueue.Enqueue(newTower);
     }
 
-    private static void MoveTower()
+    private void MoveTower(Waypoint newBaseWaypoint)
     {
-        print("Can't add more than 5 towers!");
-        // Move towers using ring buffer
+        Tower lastTower = towerQueue.Dequeue();
+
+        // Set flags and waypoint position, then move tower
+        lastTower.baseWaypoint.isPlaceable = true;
+        newBaseWaypoint.isPlaceable = false;
+        lastTower.baseWaypoint = newBaseWaypoint;
+        lastTower.transform.position = newBaseWaypoint.transform.position;
+
+        towerQueue.Enqueue(lastTower);
     }
 }

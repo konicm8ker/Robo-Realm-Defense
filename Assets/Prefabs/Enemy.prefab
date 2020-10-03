@@ -79,6 +79,7 @@ MonoBehaviour:
   enemyHit: {fileID: 4443545759620797610}
   enemyDeath: {fileID: 198537984209914932, guid: 1a51bfda454239a41afb7dee687c6ac0,
     type: 3}
+  deathFXParent: {fileID: 0}
 --- !u!1 &1646541640735296
 GameObject:
   m_ObjectHideFlags: 0
