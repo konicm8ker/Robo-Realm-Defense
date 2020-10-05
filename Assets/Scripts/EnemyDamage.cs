@@ -8,13 +8,14 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem enemyHit = null;
     [SerializeField] ParticleSystem enemyDeath = null;
     GameObject deathFXParent = null;
+    ParticleSystem deathFX = null;
 
     private void OnParticleCollision(GameObject other)
     {
         ProcessDamage();
         if(enemyHitPoints <= 0)
         {
-            DestroyEnemy();
+            DestroyEnemy(this.gameObject, enemyDeath);
         }
     }
 
@@ -24,17 +25,23 @@ public class EnemyDamage : MonoBehaviour
         enemyHit.Play();
     }
 
-    private void DestroyEnemy()
+    public void DestroyEnemy(GameObject enemy, ParticleSystem explosion)
     {
-        // Adjusted death particle explosion height
-        Vector3 enemyDeathPos = new Vector3(transform.position.x, transform.position.y * 2f, transform.position.z);
-        ParticleSystem enemyDeathFX = Instantiate(enemyDeath, enemyDeathPos, Quaternion.identity);
+        // Get correct explosion pos and adj height
+        Vector3 enemyDeathPos = new Vector3(
+            enemy.transform.position.x,
+            enemy.transform.position.y * 2f,
+            enemy.transform.position.z
+        );
+
+        // Play correct explosion when destroying enemy
+        deathFX = Instantiate(explosion, enemyDeathPos, Quaternion.identity);
 
         // Place death instance in parent and play death effect
         deathFXParent = GameObject.Find("Death Effects"); 
-        enemyDeathFX.transform.parent = deathFXParent.transform;
-        enemyDeathFX.Play();
+        deathFX.transform.parent = deathFXParent.transform;
+        deathFX.Play();
 
-        Destroy(gameObject);
+        Destroy(enemy);
     }
 }

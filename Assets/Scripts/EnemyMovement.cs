@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    float enemySpeed = 4f;
+    [SerializeField] float enemySpeed = 12f;
+    [SerializeField] ParticleSystem friendlyDeath = null;
+
     void Start()
     {
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
@@ -30,5 +32,12 @@ public class EnemyMovement : MonoBehaviour
             }
         }
         yield return null;
+        DamageBase();
+    }
+
+    private void DamageBase()
+    {
+        // Destroy enemy and play friendly explosion
+        FindObjectOfType<EnemyDamage>().DestroyEnemy(this.gameObject, friendlyDeath);
     }
 }
