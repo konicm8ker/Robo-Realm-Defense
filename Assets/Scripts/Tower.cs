@@ -8,12 +8,19 @@ public class Tower : MonoBehaviour
     public Waypoint baseWaypoint;
     [SerializeField] Transform towerToPan = null;
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
+    PlayerHealth playerHealth = null;
     Transform enemyTarget;
+
+    void Start()
+    {
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+    }
 
     void Update()
     {
         SetTargetEnemy();
-        if(enemyTarget)
+        bool gameOverStatus = playerHealth.gameOver;
+        if(enemyTarget && gameOverStatus == false)
         {
             ProcessAim();
             CheckEnemyDistance();

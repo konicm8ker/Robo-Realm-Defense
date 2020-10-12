@@ -6,9 +6,13 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float enemySpeed = 12f;
     [SerializeField] ParticleSystem friendlyDeath = null;
+    PlayerHealth playerHealth = null;
+    EnemyDamage enemyDamage = null;
 
     void Start()
     {
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+        enemyDamage = GameObject.FindWithTag("Enemy").GetComponent<EnemyDamage>();
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
         List<Waypoint> path = pathFinder.GetPath();
         StartCoroutine(FollowPath(path));
@@ -26,10 +30,12 @@ public class EnemyMovement : MonoBehaviour
             );
             transform.LookAt(targetPos);
             while(transform.position != targetPos)
-            {
+            {   
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * enemySpeed);
                 yield return null;
             }
+            bool gameOverStatus = playerHealth.gameOver;
+            if(gameOverStatus == true) { yield break; }
         }
         yield return null;
         DamageBase();
@@ -37,7 +43,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void DamageBase()
     {
+        // Decrease player health
+        playerHealth.DecreasePlayerHealth();
         // Destroy enemy and play friendly explosion
-        FindObjectOfType<EnemyDamage>().DestroyEnemy(this.gameObject, friendlyDeath);
+        enemyDamage.DestroyEnemy(this.gameObject, friendlyDeath);
     }
 }

@@ -8,9 +8,23 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
+    PlayerHealth playerHealth = null;
     GameObject cursor;
     Vector2Int gridPos;
     const int gridSize = 10;
+
+    void Start()
+    {
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+    }
+
+    void Update()
+    {
+        if(playerHealth.gameOver == true)
+        {
+            UpdateCursor(false);
+        }
+    }
 
     void OnMouseOver()
     {
@@ -21,7 +35,8 @@ public class Waypoint : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            if(isPlaceable)
+            var gameOverStatus = playerHealth.gameOver;
+            if(isPlaceable && gameOverStatus == false)
             {
                 FindObjectOfType<TowerHandler>().AddTower(this);
             }
