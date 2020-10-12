@@ -1,14 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField] int enemyHitPoints = 60;
     [SerializeField] ParticleSystem enemyHit = null;
     [SerializeField] ParticleSystem enemyDeath = null;
+    Text scoreText;
     GameObject deathFXParent = null;
     ParticleSystem deathFX = null;
+    PlayerHealth playerHealth;
+
+    void Start()
+    {
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
+        scoreText.text = "Score:\n" + playerHealth.GetScore().ToString();
+    }
 
     private void OnParticleCollision(GameObject other)
     {
@@ -21,6 +31,8 @@ public class EnemyDamage : MonoBehaviour
 
     private void ProcessDamage()
     {
+        FindObjectOfType<PlayerHealth>().score += 1;
+        scoreText.text = "Score:\n" + playerHealth.GetScore().ToString();
         enemyHitPoints -= 2;
         enemyHit.Play();
     }

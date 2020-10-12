@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerHandler : MonoBehaviour
 {
@@ -8,6 +9,14 @@ public class TowerHandler : MonoBehaviour
     [SerializeField] Tower towerPrefab = null;
     [SerializeField] Queue<Tower> towerQueue = new Queue<Tower>();
     [SerializeField] Transform towerParent = null;
+    [SerializeField] Text towerCount = null;
+    int towerLimitCounter;
+
+    void Start()
+    {
+        towerLimitCounter = towerLimit;
+        towerCount.text = "x" + towerLimitCounter.ToString();
+    }
 
     public void AddTower(Waypoint baseWaypoint)
     {
@@ -17,7 +26,7 @@ public class TowerHandler : MonoBehaviour
         }
         else
         {
-            MoveTower(baseWaypoint);
+            // MoveTower(baseWaypoint);
         }
     }
 
@@ -31,6 +40,7 @@ public class TowerHandler : MonoBehaviour
         baseWaypoint.isPlaceable = false;
 
         towerQueue.Enqueue(newTower);
+        towerCount.text = "x" + (towerLimitCounter -= 1).ToString();
     }
 
     private void MoveTower(Waypoint newBaseWaypoint)
