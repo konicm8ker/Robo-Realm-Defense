@@ -17,7 +17,7 @@ public class EnemyDamage : MonoBehaviour
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
-        scoreText.text = "Score:\n" + playerHealth.GetScore().ToString();
+        scoreText.text = "Score\n" + playerHealth.GetScore().ToString();
     }
 
     private void OnParticleCollision(GameObject other)
@@ -32,7 +32,7 @@ public class EnemyDamage : MonoBehaviour
     private void ProcessDamage()
     {
         FindObjectOfType<PlayerHealth>().score += 1;
-        scoreText.text = "Score:\n" + playerHealth.GetScore().ToString();
+        scoreText.text = "Score\n" + playerHealth.GetScore().ToString();
         enemyHitPoints -= 2;
         enemyHit.Play();
     }

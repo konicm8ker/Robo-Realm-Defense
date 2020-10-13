@@ -14,13 +14,13 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         baseHealth = GameObject.FindWithTag("BaseHealth").GetComponent<Text>();
-        baseHealth.text = health.ToString() + ".HP";
+        baseHealth.text = "HP." + health.ToString();
     }
 
     public void DecreasePlayerHealth()
     {
         health -= damage;
-        baseHealth.text = health.ToString() + ".HP";
+        baseHealth.text = "HP." + health.ToString();
         // Check if health reached zero
         if(health <= 0)
         {

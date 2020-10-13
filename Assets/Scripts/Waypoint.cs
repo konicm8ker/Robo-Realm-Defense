@@ -11,6 +11,7 @@ public class Waypoint : MonoBehaviour
     PlayerHealth playerHealth = null;
     GameObject cursor;
     Vector2Int gridPos;
+    byte r,g,b,a;
     const int gridSize = 10;
 
     void Start()
@@ -22,7 +23,7 @@ public class Waypoint : MonoBehaviour
     {
         if(playerHealth.gameOver == true)
         {
-            UpdateCursor(false);
+            UpdateCursor(false, "null");
         }
     }
 
@@ -30,7 +31,11 @@ public class Waypoint : MonoBehaviour
     {
         if(isPlaceable)
         {
-            UpdateCursor(true);
+            UpdateCursor(true, "orange");
+        }
+        else
+        {
+            UpdateCursor(true, "red");
         }
 
         if(Input.GetMouseButtonDown(0))
@@ -49,15 +54,20 @@ public class Waypoint : MonoBehaviour
 
     void OnMouseExit()
     {
-        UpdateCursor(false);
+        UpdateCursor(false, "null");
     }
 
-    private void UpdateCursor(bool render)
+    private void UpdateCursor(bool render, string color)
     {
         cursor = GameObject.Find("Cursor");
         MeshRenderer cursorMesh = cursor.GetComponent<MeshRenderer>();
 
         cursorMesh.enabled = render;
+        if(color == "orange")
+        { r=229; g=124; b=25; a=208; }
+        if(color == "red")
+        { r=229; g=32; b=25; a=208; }
+        cursorMesh.material.SetColor("_Color", new Color32(r,g,b,a));
         cursor.transform.position = new Vector3(
             transform.position.x,
             cursor.transform.position.y,
