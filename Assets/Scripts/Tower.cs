@@ -8,18 +8,18 @@ public class Tower : MonoBehaviour
     public Waypoint baseWaypoint;
     [SerializeField] Transform towerToPan = null;
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
-    PlayerHealth playerHealth = null;
+    WaveController waveController = null;
     Transform enemyTarget;
 
     void Start()
     {
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+        waveController = GameObject.FindObjectOfType<WaveController>();
     }
 
     void Update()
     {
         SetTargetEnemy();
-        bool gameOverStatus = playerHealth.gameOver;
+        bool gameOverStatus = waveController.gameOver;
         if(enemyTarget && gameOverStatus == false)
         {
             ProcessAim();
@@ -81,4 +81,5 @@ public class Tower : MonoBehaviour
         ParticleSystem.EmissionModule emissionModule = towerTop.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = value;
     }
+
 }

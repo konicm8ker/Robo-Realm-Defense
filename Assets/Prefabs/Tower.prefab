@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 5071029912581703735}
   m_Layer: 0
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4958,5 +4958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12bc2be6f68a3434da6d5999700f43f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseWaypoint: {fileID: 0}
   towerToPan: {fileID: 5066963648845348397}
   attackRange: 35

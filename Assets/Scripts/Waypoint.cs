@@ -8,39 +8,31 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
-    PlayerHealth playerHealth = null;
+    WaveController waveController = null;
     GameObject cursor;
     Vector2Int gridPos;
-    byte r,g,b,a;
     const int gridSize = 10;
 
     void Start()
     {
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+        waveController = GameObject.FindObjectOfType<WaveController>();
     }
 
     void Update()
     {
-        if(playerHealth.gameOver == true)
+        if(waveController.gameOver == true)
         {
-            UpdateCursor(false, "null");
+            UpdateCursor(false);
         }
     }
 
     void OnMouseOver()
     {
-        if(isPlaceable)
-        {
-            UpdateCursor(true, "orange");
-        }
-        else
-        {
-            UpdateCursor(true, "red");
-        }
+        UpdateCursor(true);
 
         if(Input.GetMouseButtonDown(0))
         {
-            var gameOverStatus = playerHealth.gameOver;
+            var gameOverStatus = waveController.gameOver;
             if(isPlaceable && gameOverStatus == false)
             {
                 FindObjectOfType<TowerHandler>().AddTower(this);
@@ -48,26 +40,22 @@ public class Waypoint : MonoBehaviour
             else
             {
                 print("Can't place tower here.");
+                // todo: flash cursor red and play error sound
             }
         }
     }
 
     void OnMouseExit()
     {
-        UpdateCursor(false, "null");
+        UpdateCursor(false);
     }
 
-    private void UpdateCursor(bool render, string color)
+    private void UpdateCursor(bool render)
     {
         cursor = GameObject.Find("Cursor");
         MeshRenderer cursorMesh = cursor.GetComponent<MeshRenderer>();
 
         cursorMesh.enabled = render;
-        if(color == "orange")
-        { r=229; g=124; b=25; a=208; }
-        if(color == "red")
-        { r=229; g=32; b=25; a=208; }
-        cursorMesh.material.SetColor("_Color", new Color32(r,g,b,a));
         cursor.transform.position = new Vector3(
             transform.position.x,
             cursor.transform.position.y,

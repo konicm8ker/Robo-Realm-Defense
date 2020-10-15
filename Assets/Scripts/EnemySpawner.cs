@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,25 +9,27 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int spawnLimit = 10;
     [SerializeField] Transform enemyParent = null;
     [SerializeField] EnemyMovement enemyPrefab = null;
-    PlayerHealth playerHealth = null;
+    WaveController waveController;
+    Text scoreText = null;
 
     void Start()
     {
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
-        StartCoroutine(SpawnEnemies());
+        waveController = GameObject.FindObjectOfType<WaveController>();
+        scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
+        scoreText.text = "Score\n0";
     }
 
-    IEnumerator SpawnEnemies()
+    public IEnumerator SpawnEnemies()
     {
         // Delay initial enemy spawn
-        yield return new WaitForSeconds(spawnTimer);
+        // yield return new WaitForSeconds(spawnTimer);
         for(int i=0; i<spawnLimit; i++)
         {
-            bool gameOverStatus = playerHealth.gameOver;
-            if(gameOverStatus == true) { yield break; }
-
-            EnemyMovement enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
-            enemy.transform.parent = enemyParent;
+            if(waveController.gameOver == false)
+            {
+                EnemyMovement enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
+                enemy.transform.parent = enemyParent;
+            }
             yield return new WaitForSeconds(spawnTimer);
         }
     }

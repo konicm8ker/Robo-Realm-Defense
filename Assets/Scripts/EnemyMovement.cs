@@ -7,10 +7,12 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] float enemySpeed = 12f;
     [SerializeField] ParticleSystem friendlyDeath = null;
     PlayerHealth playerHealth = null;
+    WaveController waveController = null;
     EnemyDamage enemyDamage = null;
 
     void Start()
     {
+        waveController = GameObject.FindObjectOfType<WaveController>();
         playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         enemyDamage = GameObject.FindWithTag("Enemy").GetComponent<EnemyDamage>();
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
@@ -34,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * enemySpeed);
                 yield return null;
             }
-            bool gameOverStatus = playerHealth.gameOver;
+            bool gameOverStatus = waveController.gameOver;
             if(gameOverStatus == true) { yield break; }
         }
         yield return null;

@@ -7,7 +7,7 @@ TagManager:
   - Enemy
   - BaseHealth
   - ScoreText
-  - EnemyBoss
+  - Tower
   layers:
   - Default
   - TransparentFX

@@ -12,12 +12,13 @@ public class EnemyDamage : MonoBehaviour
     GameObject deathFXParent = null;
     ParticleSystem deathFX = null;
     PlayerHealth playerHealth;
+    WaveController waveController;
 
     void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
+        waveController = FindObjectOfType<WaveController>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
-        scoreText.text = "Score\n" + playerHealth.GetScore().ToString();
     }
 
     private void OnParticleCollision(GameObject other)
@@ -54,6 +55,8 @@ public class EnemyDamage : MonoBehaviour
         deathFX.transform.parent = deathFXParent.transform;
         deathFX.Play();
 
+        // Check for active enemies after each enemy destroyed
+        waveController.Invoke("CheckActiveEnemies", 1f);
         Destroy(enemy);
     }
 }
