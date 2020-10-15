@@ -5,22 +5,21 @@ using UnityEngine.UI;
 
 public class TowerHandler : MonoBehaviour
 {
+    
+    public Queue<Tower> towerQueue = new Queue<Tower>();
     public int towerLimit = 5;
     [SerializeField] Tower towerPrefab = null;
-    public Queue<Tower> towerQueue = new Queue<Tower>();
     [SerializeField] Transform towerParent = null;
     [SerializeField] Text towerCount = null;
     int towerLimitCounter;
 
     void Start()
     {
-        towerLimitCounter = towerLimit;
-        towerCount.text = "x" + towerLimitCounter.ToString();
+        ResetTowerStats();
     }
 
     public void ResetTowerStats()
     {
-        towerLimit = 5;
         towerLimitCounter = towerLimit;
         towerCount.text = "x" + towerLimitCounter.ToString();
     }
@@ -47,7 +46,8 @@ public class TowerHandler : MonoBehaviour
         baseWaypoint.isPlaceable = false;
 
         towerQueue.Enqueue(newTower);
-        towerCount.text = "x" + (towerLimitCounter -= 1).ToString();
+        towerLimitCounter--;
+        towerCount.text = "x" + towerLimitCounter.ToString();
     }
 
     private void MoveTower(Waypoint newBaseWaypoint)

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    
+
     public int score = 0;
     [SerializeField] int health = 10;
     [SerializeField] int damage = 1;
@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        waveController = GameObject.FindObjectOfType<WaveController>();
+        waveController = GameObject.FindWithTag("World").GetComponent<WaveController>();
         baseHealthText = GameObject.FindWithTag("BaseHealth").GetComponent<Text>();
         baseHealthText.text = "HP." + health.ToString();
     }
@@ -30,10 +30,5 @@ public class PlayerHealth : MonoBehaviour
             waveController.Invoke("GameOver", 1f);
         }
     }
-
-    public int GetScore()
-    {
-        return score;
-    }
-
+    
 }

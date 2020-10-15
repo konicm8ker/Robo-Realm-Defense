@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour
 {
+
     [SerializeField] int enemyHitPoints = 60;
     [SerializeField] ParticleSystem enemyHit = null;
     [SerializeField] ParticleSystem enemyDeath = null;
     Text scoreText;
-    GameObject deathFXParent = null;
-    ParticleSystem deathFX = null;
-    PlayerHealth playerHealth;
+    GameObject deathFXParent;
+    ParticleSystem deathFX;
     WaveController waveController;
+    PlayerHealth playerHealth;
 
     void Start()
     {
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        waveController = FindObjectOfType<WaveController>();
+        waveController = GameObject.FindWithTag("World").GetComponent<WaveController>();
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
     }
 
@@ -28,14 +29,6 @@ public class EnemyDamage : MonoBehaviour
         {
             DestroyEnemy(this.gameObject, enemyDeath);
         }
-    }
-
-    private void ProcessDamage()
-    {
-        FindObjectOfType<PlayerHealth>().score += 1;
-        scoreText.text = "Score\n" + playerHealth.GetScore().ToString();
-        enemyHitPoints -= 2;
-        enemyHit.Play();
     }
 
     public void DestroyEnemy(GameObject enemy, ParticleSystem explosion)
@@ -59,4 +52,14 @@ public class EnemyDamage : MonoBehaviour
         waveController.Invoke("CheckActiveEnemies", 1f);
         Destroy(enemy);
     }
+
+    private void ProcessDamage()
+    {
+        playerHealth.score += 1;
+        if(playerHealth.score >= 999999) { playerHealth.score = 999999; } // Set max score 
+        scoreText.text = "Score\n" + playerHealth.score.ToString();
+        enemyHitPoints -= 2;
+        enemyHit.Play();
+    }
+
 }

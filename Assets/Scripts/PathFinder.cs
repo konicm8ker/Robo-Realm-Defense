@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
+    
     [SerializeField] Waypoint startWaypoint = null;
     [SerializeField] Waypoint endWaypoint = null;
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
@@ -15,8 +16,8 @@ public class PathFinder : MonoBehaviour
         Vector2Int.down,
         Vector2Int.left
     };
-    bool isRunning = true;
     Waypoint searchCenter; // The current search center
+    bool isRunning = true;
 
     public List<Waypoint> GetPath()
     {
@@ -123,4 +124,5 @@ public class PathFinder : MonoBehaviour
             neighbor.exploredFrom = searchCenter;
         }
     }
+
 }

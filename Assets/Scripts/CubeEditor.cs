@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
+
     Waypoint waypoint;
 
     void Awake()
@@ -32,7 +33,8 @@ public class CubeEditor : MonoBehaviour
 
     private void UpdateLabel()
     {
-        TextMesh textMesh = GetComponentInChildren<TextMesh>(); // Update labels with snapped coord
+        // Update labels with snapped coord
+        TextMesh textMesh = GetComponentInChildren<TextMesh>();
         string labelText =
             (waypoint.GetGridPos().x) +
             "," +
@@ -40,4 +42,5 @@ public class CubeEditor : MonoBehaviour
         textMesh.text = labelText;
         gameObject.name = labelText;
     }
+
 }

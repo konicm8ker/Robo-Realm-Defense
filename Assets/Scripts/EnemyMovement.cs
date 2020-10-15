@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+
     [SerializeField] float enemySpeed = 12f;
     [SerializeField] ParticleSystem friendlyDeath = null;
-    PlayerHealth playerHealth = null;
-    WaveController waveController = null;
-    EnemyDamage enemyDamage = null;
+    WaveController waveController;
+    PlayerHealth playerHealth;
+    EnemyDamage enemyDamage;
 
     void Start()
     {
-        waveController = GameObject.FindObjectOfType<WaveController>();
+        waveController = GameObject.FindWithTag("World").GetComponent<WaveController>();
         playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         enemyDamage = GameObject.FindWithTag("Enemy").GetComponent<EnemyDamage>();
         PathFinder pathFinder = FindObjectOfType<PathFinder>();
         List<Waypoint> path = pathFinder.GetPath();
         StartCoroutine(FollowPath(path));
+    }
+
+    private void DamageBase()
+    {
+        // Decrease player health
+        playerHealth.DecreasePlayerHealth();
+        // Destroy enemy and play friendly explosion
+        enemyDamage.DestroyEnemy(this.gameObject, friendlyDeath);
     }
 
     IEnumerator FollowPath(List<Waypoint> path)
@@ -42,12 +51,5 @@ public class EnemyMovement : MonoBehaviour
         yield return null;
         DamageBase();
     }
-
-    private void DamageBase()
-    {
-        // Decrease player health
-        playerHealth.DecreasePlayerHealth();
-        // Destroy enemy and play friendly explosion
-        enemyDamage.DestroyEnemy(this.gameObject, friendlyDeath);
-    }
+    
 }

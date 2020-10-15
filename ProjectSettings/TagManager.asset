@@ -8,6 +8,7 @@ TagManager:
   - BaseHealth
   - ScoreText
   - Tower
+  - World
   layers:
   - Default
   - TransparentFX

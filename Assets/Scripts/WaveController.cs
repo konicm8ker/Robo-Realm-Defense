@@ -5,22 +5,24 @@ using UnityEngine.UI;
 
 public class WaveController : MonoBehaviour
 {
+
     public bool gameOver = false;
+    public bool waveIsActive = false;
     [SerializeField] Text timerText = null;
     [SerializeField] Text waveText = null;
     [SerializeField] Text towerCount = null;
     [SerializeField] Text gameOverText = null;
     TowerHandler towerHandler;
-    Tower tower;
+    GameObject[] towers;
     int timerCounter = 3;
     int waveCount = 1;
-    GameObject[] towers;
     
 
     void Start()
     {
         // Start initial wave
-        StartFirstWave();
+        waveText.text = "Wave " + waveCount;
+        Invoke("StartFirstWave", 1f);
     }
 
     private void StartFirstWave()
@@ -36,42 +38,58 @@ public class WaveController : MonoBehaviour
 
     private void StartNextWave()
     {
-        print("Starting next wave.");
-        // set initial values for wave and towercount
-        waveCount++;
+        // Reset timer counter for next countdown and update wave, reset towers
         timerCounter = 3;
+        UpdateWaveStatus();
+        ResetTowers();
+
+        // Start countdown timer
+        StartCoroutine(CountdownTimer());
+    }
+
+    private void UpdateWaveStatus()
+    {
+        waveCount++;
         waveText.text = "Wave " + waveCount;
+    }
+
+    private void ResetTowers()
+    {
         towerHandler = GameObject.FindObjectOfType<TowerHandler>();
         towers = GameObject.FindGameObjectsWithTag("Tower");
-        foreach(Tower tower in towerHandler.towerQueue)
+
+        foreach (GameObject tower in towers)
         {
-            var waypointToReset = tower.baseWaypoint;
+            Tower towerInstance = tower.GetComponent<Tower>();
+            Waypoint waypointToReset = towerInstance.baseWaypoint;
             waypointToReset.isPlaceable = true;
-        }
-        towerHandler.towerQueue.Clear();
-        foreach(GameObject tower in towers)
-        {
             Destroy(tower);
         }
-        towerHandler.ResetTowerStats();
 
-        // start countdown timer
-        StartCoroutine(CountdownTimer());
+        towerHandler.towerQueue.Clear();
+        towerHandler.ResetTowerStats();
     }
 
     private void CheckActiveEnemies()
     {
-        print("Checking for active enemies.");
         var enemyCount = GameObject.FindObjectsOfType<EnemyMovement>().Length;
         if(enemyCount <= 0 && gameOver == false) // if no active enemies and no gameover
         {
+            waveIsActive = false;
             Invoke("StartNextWave", 1f);
         }
     }
 
-    public void GameOver()
+    private void ProcessEnemySpawner()
     {
-        print("GAME OVER!");
+        waveIsActive = true;
+        EnemySpawner enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+        StartCoroutine(enemySpawner.SpawnEnemies());
+    }
+
+    private void GameOver()
+    {
+        // Display GAME OVER text
         gameOverText.enabled = true;
     }
 
@@ -90,9 +108,4 @@ public class WaveController : MonoBehaviour
         ProcessEnemySpawner();
     }
 
-    private void ProcessEnemySpawner()
-    {
-        EnemySpawner enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
-        StartCoroutine(enemySpawner.SpawnEnemies());
-    }
 }
