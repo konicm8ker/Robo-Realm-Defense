@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01626b18cfb76494495ac78f869c7f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 12
+  enemySpeed: 14
   friendlyDeath: {fileID: 198537984209914932, guid: b118c4e455e8d874eb2eea34aa4f7729,
     type: 3}
 --- !u!114 &5702382075929886272
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486387d677c6eab48be2d1ccc2ef29ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHitPoints: 40
+  enemyHitPoints: 30
   enemyHit: {fileID: 4443545759620797610}
   enemyDeath: {fileID: 198537984209914932, guid: 1a51bfda454239a41afb7dee687c6ac0,
     type: 3}

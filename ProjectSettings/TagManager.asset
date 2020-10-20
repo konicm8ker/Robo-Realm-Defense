@@ -9,6 +9,7 @@ TagManager:
   - ScoreText
   - Tower
   - World
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX

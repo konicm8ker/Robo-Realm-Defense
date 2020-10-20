@@ -16,6 +16,7 @@ public class WaveController : MonoBehaviour
     GameObject[] towers;
     int timerCounter = 3;
     int waveCount = 1;
+    bool activeEnemies = true;
     
 
     void Start()
@@ -73,17 +74,22 @@ public class WaveController : MonoBehaviour
     private void CheckActiveEnemies()
     {
         var enemyCount = GameObject.FindObjectsOfType<EnemyMovement>().Length;
-        if(enemyCount <= 0 && gameOver == false) // if no active enemies and no gameover
+        if(enemyCount == 0 && gameOver == false) // if no active enemies and no gameover
         {
-            waveIsActive = false;
-            Invoke("StartNextWave", 1f);
+            if(activeEnemies) // Only allow next wave to run once if no active enemies
+            {
+                waveIsActive = false;
+                Invoke("StartNextWave", 1f);
+            }
+            activeEnemies = false;
         }
     }
 
     private void ProcessEnemySpawner()
     {
         waveIsActive = true;
-        EnemySpawner enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
+        activeEnemies = true;
+        var enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
         StartCoroutine(enemySpawner.SpawnEnemies());
     }
 
