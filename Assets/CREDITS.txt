@@ -1,0 +1,24 @@
+Developed By Tommy Morris => @konicm8ker
+
+[MUSIC]
+- Bubble Gum Puzzler 2
+  Music by Eric Matyas - https://soundimage.org
+
+[SFX]
+- Enemy Spawn
+  Freesound - GameAudio - https://freesound.org/people/GameAudio/sounds/220162
+- Player Damage
+  Freesound - esseffe1 - https://freesound.org/people/esseffe1/sounds/200197
+- Player Death
+  Freesound - LegoLunatic - https://freesound.org/people/LegoLunatic/sounds/151243
+- Enemy Damage
+  Freesound - MortisBlack - https://freesound.org/people/MortisBlack/sounds/385051
+- Enemy Death
+  Freesound - kutejnikov - https://freesound.org/people/kutejnikov/sounds/522209
+- Tower Laser Blast
+  "Laser Ricochet" - Eric Matyas - https://soundimage.org
+- Error
+  Freesound - Autistic Lucario - https://freesound.org/people/Autistic%20Lucario/sounds/142608
+- Countdown Timer
+  Freesound - aditwayer - https://freesound.org/people/aditwayer/sounds/434795
+  

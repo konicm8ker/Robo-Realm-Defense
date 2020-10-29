@@ -1276,7 +1276,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ab32458bdf8f8a54caf50be5f758a758, type: 3}
-    m_FontSize: 37
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -1287,17 +1287,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[Credits]
-
-
-    Developed By: Tommy Morris | @konicm8ker
-
-
-    [Assets]
-
-    -
-    The game assets were provided from GameDev.TV in their RealmRush game course
-    project.'
+  m_Text: "Developed By Tommy Morris => @konicm8ker\r\n\r\n[MUSIC]\r\n- Bubble Gum
+    Puzzler 2\r - Music by Eric Matyas - https://soundimage.org\r\n\r\n[SFX]\n- Tower
+    Laser Blast\r - \"Laser Ricochet\" - Eric Matyas - https://soundimage.org\r\n-
+    Enemy Spawn\r -  https://freesound.org/people/GameAudio/sounds/220162\n- Player
+    Damage\r - https://freesound.org/people/esseffe1/sounds/200197\n- Player Death\r
+    - https://freesound.org/people/LegoLunatic/sounds/151243\r\n- Enemy Damage\r
+    - https://freesound.org/people/MortisBlack/sounds/385051\n- Enemy Death\r - https://freesound.org/people/kutejnikov/sounds/522209\r\n-
+    Error\r - https://freesound.org/people/Autistic%20Lucario/sounds/142608\n- Countdown
+    Timer\r - https://freesound.org/people/aditwayer/sounds/434795\n\n[ASSETS]\n-
+    All game assets were provided by GameDev.TV's RealmRush course project."
 --- !u!222 &1743063759
 CanvasRenderer:
   m_ObjectHideFlags: 0

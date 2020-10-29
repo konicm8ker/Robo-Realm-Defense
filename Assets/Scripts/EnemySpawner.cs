@@ -5,18 +5,26 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField][Tooltip("In secs")][Range(0.1f,20f)] float spawnRate = 2f;
-    [SerializeField] int spawnLimit = 10;
+    public float spawnRate = 2f;
+    public int spawnLimit = 10;
     [SerializeField] Transform enemyParent = null;
-    [SerializeField] EnemyMovement enemyPrefab = null;
+    [SerializeField] EnemyDamage enemyPrefab = null;
     WaveController waveController;
     Text scoreText;
+    int enemyHitCounter = 30; // Start with value of enemy prefab
 
     void Start()
     {
         waveController = GameObject.FindObjectOfType<WaveController>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
         scoreText.text = "Score\n0";
+    }
+
+    private void IncreaseHitPoints(EnemyDamage enemy)
+    {
+        // Increase enemy hit points
+        enemy.enemyHitPoints = enemyHitCounter;
+
     }
 
     public IEnumerator SpawnEnemies()
@@ -26,10 +34,15 @@ public class EnemySpawner : MonoBehaviour
             var gameOverStatus = waveController.gameOver;
             if(gameOverStatus == false)
             {
-                EnemyMovement enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
+                EnemyDamage enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
                 enemy.transform.parent = enemyParent;
+                IncreaseHitPoints(enemy);
             }
             yield return new WaitForSeconds(spawnRate);
+        }
+        if(enemyHitCounter < 40) // Set max hit points for enemy
+        {
+            enemyHitCounter += 2;
         }
     }
 

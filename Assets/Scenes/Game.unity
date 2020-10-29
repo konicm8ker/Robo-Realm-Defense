@@ -4821,7 +4821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  health: 50
+  health: 25
   damage: 1
 --- !u!4 &1092318684 stripped
 Transform:
@@ -9186,10 +9186,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eac966510429834cb058a6356009db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 2
-  spawnLimit: 8
+  spawnRate: 5
+  spawnLimit: 5
   enemyParent: {fileID: 1684586697}
-  enemyPrefab: {fileID: 5277137320557562599, guid: 04f81ff9814844ccfa08226f8d46a3f4,
+  enemyPrefab: {fileID: 5702382075929886272, guid: 04f81ff9814844ccfa08226f8d46a3f4,
     type: 3}
 --- !u!1001 &1688079985
 PrefabInstance:

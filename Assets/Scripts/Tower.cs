@@ -11,7 +11,6 @@ public class Tower : MonoBehaviour
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
     WaveController waveController;
     Transform enemyTarget;
-
     void Start()
     {
         waveController = GameObject.FindObjectOfType<WaveController>();

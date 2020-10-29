@@ -10,6 +10,7 @@ TagManager:
   - Tower
   - World
   - EnemySpawner
+  - AudioController
   layers:
   - Default
   - TransparentFX

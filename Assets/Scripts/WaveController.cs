@@ -42,8 +42,8 @@ public class WaveController : MonoBehaviour
         // Reset timer counter for next countdown and update wave, reset towers
         timerCounter = 3;
         UpdateWaveStatus();
+        IncreaseDifficulty();
         ResetTowers();
-
         // Start countdown timer
         StartCoroutine(CountdownTimer());
     }
@@ -52,6 +52,20 @@ public class WaveController : MonoBehaviour
     {
         waveCount++;
         waveText.text = "Wave " + waveCount;
+    }
+
+    private void IncreaseDifficulty()
+    {
+        EnemySpawner enemySpawner = GameObject.FindWithTag("EnemySpawner").GetComponent<EnemySpawner>();
+
+        if(enemySpawner.spawnRate > 1f) // Set max spawn rate
+        {
+            enemySpawner.spawnRate -= .5f;
+        }
+        if(enemySpawner.spawnLimit < 10) // Set max spawn limit
+        {
+            enemySpawner.spawnLimit += 1;
+        }
     }
 
     private void ResetTowers()

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyDamage : MonoBehaviour
 {
 
-    [SerializeField] int enemyHitPoints = 60;
+    public int enemyHitPoints = 30;
     [SerializeField] ParticleSystem enemyHit = null;
     [SerializeField] ParticleSystem enemyDeath = null;
     Text scoreText;
@@ -16,7 +16,7 @@ public class EnemyDamage : MonoBehaviour
     PlayerHealth playerHealth;
 
     void Start()
-    {
+    {   
         waveController = GameObject.FindWithTag("World").GetComponent<WaveController>();
         playerHealth = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
