@@ -14,6 +14,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] Image textPanel = null;
     [SerializeField] Text helpText = null;
     [SerializeField] Text creditsText = null;
+    [SerializeField] AudioClip buttonClick;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -27,16 +29,20 @@ public class MenuController : MonoBehaviour
         creditsButton.onClick.AddListener(() => ShowTextDisplay(2));
         // Back button clicked
         backButton.GetComponent<Button>().onClick.AddListener(HideTextDisplay);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void StartGame()
     {
+        audioSource.PlayOneShot(buttonClick);
         // Load the game level
         SceneManager.LoadScene(1);
     }
 
     private void ShowTextDisplay(int index)
     {
+        audioSource.PlayOneShot(buttonClick);
         // Show text panel with help text
         textPanel.enabled = true;
         if(index == 1) { helpText.enabled = true; }
@@ -53,6 +59,7 @@ public class MenuController : MonoBehaviour
 
     private void HideTextDisplay()
     {
+        audioSource.PlayOneShot(buttonClick);
         // Hide text panel with text
         textPanel.enabled = false;
         helpText.enabled = false;
