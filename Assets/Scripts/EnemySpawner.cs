@@ -7,14 +7,18 @@ public class EnemySpawner : MonoBehaviour
 {
     public float spawnRate = 2f;
     public int spawnLimit = 10;
+    public AudioClip enemyDeathSFX;
     [SerializeField] Transform enemyParent = null;
     [SerializeField] EnemyDamage enemyPrefab = null;
+    [SerializeField] AudioClip enemySpawnedSFX;
+    AudioSource audioSource;
     WaveController waveController;
     Text scoreText;
     int enemyHitCounter = 30; // Start with value of enemy prefab
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         waveController = GameObject.FindObjectOfType<WaveController>();
         scoreText = GameObject.FindWithTag("ScoreText").GetComponent<Text>();
         scoreText.text = "Score\n0";
@@ -34,6 +38,8 @@ public class EnemySpawner : MonoBehaviour
             var gameOverStatus = waveController.gameOver;
             if(gameOverStatus == false)
             {
+                // Play enemy spawned sfx
+                audioSource.PlayOneShot(enemySpawnedSFX, 0.8f);
                 EnemyDamage enemy = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity);
                 enemy.transform.parent = enemyParent;
                 IncreaseHitPoints(enemy);

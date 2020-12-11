@@ -14,6 +14,8 @@ public class EnemyDamage : MonoBehaviour
     ParticleSystem deathFX;
     WaveController waveController;
     PlayerHealth playerHealth;
+    AudioSource audioSource;
+    AudioClip enemyDeathSFX;
 
     void Start()
     {   
@@ -39,6 +41,11 @@ public class EnemyDamage : MonoBehaviour
             enemy.transform.position.y * 2f,
             enemy.transform.position.z
         );
+
+        // Play enemy death sfx
+        audioSource = GameObject.FindWithTag("EnemySpawner").GetComponent<AudioSource>();
+        enemyDeathSFX = FindObjectOfType<EnemySpawner>().enemyDeathSFX;
+        audioSource.PlayOneShot(enemyDeathSFX, 0.2f);
 
         // Play correct explosion when destroying enemy
         deathFX = Instantiate(explosion, enemyDeathPos, Quaternion.identity);

@@ -9,6 +9,8 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public bool isPlaceable = true;
     public Waypoint exploredFrom = null;
+    AudioSource audioSource;
+    AudioClip errorSFX;
     WaveController waveController = null;
     GameObject cursor;
     Vector2Int gridPos;
@@ -48,8 +50,13 @@ public class Waypoint : MonoBehaviour
             }
             else
             {
-                print("Can't place tower here.");
-                // todo: flash cursor blank and play error sound
+                if(gameOverStatus == false && waveStatus == true)
+                {
+                    // Play error sfx
+                    audioSource = FindObjectOfType<WaveController>().GetComponent<AudioSource>();
+                    errorSFX = FindObjectOfType<WaveController>().errorSFX;
+                    audioSource.PlayOneShot(errorSFX, 0.6f);
+                }
             }
         }
     }

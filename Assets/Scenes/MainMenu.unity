@@ -837,7 +837,7 @@ MonoBehaviour:
   textPanel: {fileID: 214267854}
   helpText: {fileID: 444560511}
   creditsText: {fileID: 1743063758}
-  buttonClick: {fileID: 8300000, guid: ba6877b080de8794bb9115c097739b10, type: 3}
+  buttonClick: {fileID: 8300000, guid: 1a28105ad7871d848aab1bf4d80be552, type: 3}
 --- !u!82 &1095314585
 AudioSource:
   m_ObjectHideFlags: 0
@@ -850,7 +850,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1267,7 +1267,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f0eff08309ad0c14ba0ffdcf19392a49, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1512,15 +1512,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Developed By Tommy Morris => @konicm8ker\r\n\r\n[MUSIC]\r\n- Bubble Gum
-    Puzzler 2\r - Music by Eric Matyas - https://soundimage.org\r\n\r\n[SFX]\n- Tower
-    Laser Blast\r - \"Laser Ricochet\" - Eric Matyas - https://soundimage.org\r\n-
-    Enemy Spawn\r -  https://freesound.org/people/GameAudio/sounds/220162\n- Player
-    Damage\r - https://freesound.org/people/esseffe1/sounds/200197\n- Player Death\r
-    - https://freesound.org/people/LegoLunatic/sounds/151243\r\n- Enemy Damage\r
-    - https://freesound.org/people/MortisBlack/sounds/385051\n- Enemy Death\r - https://freesound.org/people/kutejnikov/sounds/522209\r\n-
-    Error\r - https://freesound.org/people/Autistic%20Lucario/sounds/142608\n- Countdown
-    Timer\r - https://freesound.org/people/aditwayer/sounds/434795\n\n[ASSETS]\n-
+  m_Text: "Developed By Tommy Morris => @konicm8ker\r\n\r\n[MUSIC]\r\n- Music by
+    Eric Matyas\n  https://soundimage.org\r\n\r\n[SFX]\n- Bleep - https://freesound.org/people/syn2x-v0/sounds/2311\n-
+    Enemy Spawn - https://freesound.org/people/luminousfridge/sounds/496199\r\n-
+    Enemy Death - https://freesound.org/people/psychedelic_hands/sounds/144469\r\n-
+    Countdown - https://freesound.org/people/NXRT/sounds/546602\r\n- Laser Blast
+    - https://freesound.org/people/nsstudios/sounds/344276\r\n- Error - https://freesound.org/people/Autistic%20Lucario/sounds/142608\n\n[ASSETS]\n-
     All game assets were provided by GameDev.TV's RealmRush course project."
 --- !u!222 &1743063759
 CanvasRenderer:

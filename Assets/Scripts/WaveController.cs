@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
 
     public bool gameOver = false;
     public bool waveIsActive = false;
+    public AudioClip errorSFX;
     [SerializeField] Text timerText = null;
     [SerializeField] Text waveText = null;
     [SerializeField] Text towerCount = null;
     [SerializeField] Text gameOverText = null;
+    [SerializeField] AudioClip countdownSFX;
+    [SerializeField] AudioClip gameOverSFX;
+    AudioSource audioSource;
+    AudioSource bgmAudio;
     TowerHandler towerHandler;
     GameObject[] towers;
     int timerCounter = 3;
@@ -21,6 +27,8 @@ public class WaveController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        bgmAudio = GameObject.FindWithTag("AudioController").GetComponent<AudioSource>();
         // Start initial wave
         waveText.text = "Wave " + waveCount;
         Invoke("StartFirstWave", 1f);
@@ -35,6 +43,7 @@ public class WaveController : MonoBehaviour
 
         // start countdown timer
         StartCoroutine(CountdownTimer());
+        Invoke("PlayBGM", 5f);
     }
 
     private void StartNextWave()
@@ -46,6 +55,11 @@ public class WaveController : MonoBehaviour
         ResetTowers();
         // Start countdown timer
         StartCoroutine(CountdownTimer());
+    }
+
+    private void PlayBGM()
+    {
+        bgmAudio.Play();
     }
 
     private void UpdateWaveStatus()
@@ -109,12 +123,24 @@ public class WaveController : MonoBehaviour
 
     private void GameOver()
     {
+        // Stop playing bgm
+        bgmAudio.Stop();
+        // Play game over sfx
+        audioSource.PlayOneShot(gameOverSFX, 0.6f);
         // Display GAME OVER text
         gameOverText.enabled = true;
+        Invoke("LoadMainMenu", 5f);
+    }
+
+    private void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator CountdownTimer()
     {
+        // Play countdown sfx
+        audioSource.PlayOneShot(countdownSFX, 0.8f);
         while(timerCounter >= 0)
         {
             string textToDisplay = timerCounter.ToString() + "..";

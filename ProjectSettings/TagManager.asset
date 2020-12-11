@@ -11,6 +11,8 @@ TagManager:
   - World
   - EnemySpawner
   - AudioController
+  - Enemy Death SFX
+  - Towers
   layers:
   - Default
   - TransparentFX

@@ -11,9 +11,16 @@ public class Tower : MonoBehaviour
     [SerializeField][Range(1f,50f)] float attackRange = 30f;
     WaveController waveController;
     Transform enemyTarget;
+    AudioSource audioSource;
+    AudioClip towerFiringSFX;
+    bool playFiringSFX = false;
+
     void Start()
     {
+        audioSource = FindObjectOfType<TowerHandler>().GetComponent<AudioSource>();
+        towerFiringSFX = FindObjectOfType<TowerHandler>().towerFiringSFX;
         waveController = GameObject.FindObjectOfType<WaveController>();
+        StartCoroutine(FiringSFX(1.0f));
     }
 
     void Update()
@@ -30,6 +37,19 @@ public class Tower : MonoBehaviour
             ProcessFiring(false);
         }
     }
+
+    IEnumerator FiringSFX(float waitTime)
+    {
+        while(true)
+        {
+            if(playFiringSFX)
+            {
+                // Play firing sfx
+                audioSource.PlayOneShot(towerFiringSFX, 0.4f);
+            }
+            yield return new WaitForSeconds(waitTime);
+        }
+    } 
 
     private void SetTargetEnemy()
     {
@@ -80,6 +100,7 @@ public class Tower : MonoBehaviour
         Transform towerTop = gameObject.transform.Find("Tower_A_Top").GetChild(0);
         ParticleSystem.EmissionModule emissionModule = towerTop.GetComponent<ParticleSystem>().emission;
         emissionModule.enabled = value;
+        playFiringSFX = value;
     }
-    
+  
 }

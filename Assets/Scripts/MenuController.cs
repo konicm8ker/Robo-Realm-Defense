@@ -35,14 +35,14 @@ public class MenuController : MonoBehaviour
 
     private void StartGame()
     {
-        audioSource.PlayOneShot(buttonClick);
+        audioSource.PlayOneShot(buttonClick, 0.8f);
         // Load the game level
         SceneManager.LoadScene(1);
     }
 
     private void ShowTextDisplay(int index)
     {
-        audioSource.PlayOneShot(buttonClick);
+        audioSource.PlayOneShot(buttonClick, 0.8f);
         // Show text panel with help text
         textPanel.enabled = true;
         if(index == 1) { helpText.enabled = true; }
@@ -59,7 +59,7 @@ public class MenuController : MonoBehaviour
 
     private void HideTextDisplay()
     {
-        audioSource.PlayOneShot(buttonClick);
+        audioSource.PlayOneShot(buttonClick, 0.8f);
         // Hide text panel with text
         textPanel.enabled = false;
         helpText.enabled = false;

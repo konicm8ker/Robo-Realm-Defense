@@ -8,13 +8,17 @@ public class TowerHandler : MonoBehaviour
     
     public Queue<Tower> towerQueue = new Queue<Tower>();
     public int towerLimit = 5;
+    public AudioClip towerFiringSFX;
     [SerializeField] Tower towerPrefab = null;
     [SerializeField] Transform towerParent = null;
     [SerializeField] Text towerCount = null;
+    [SerializeField] AudioClip towerPlacedClick;
+    AudioSource audioSource;
     int towerLimitCounter;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         ResetTowerStats();
     }
 
@@ -28,10 +32,14 @@ public class TowerHandler : MonoBehaviour
     {
         if(towerQueue.Count < towerLimit)
         {
+            // Play sfx when placed
+            audioSource.PlayOneShot(towerPlacedClick, 1.0f);
             InstantiateTower(baseWaypoint);
         }
         else
         {
+            // Play sfx when placed
+            audioSource.PlayOneShot(towerPlacedClick, 1.0f);
             MoveTower(baseWaypoint);
         }
     }
